@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kato.8 Studios shared sales and client CRM">
+  <title>Kato.8 CRM · Sales workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./"><span class="brand-mark">K8</span><span><strong>Kato.8 CRM</strong><small>Sales workspace</small></span></a>
+    <div class="topbar-actions"><span id="connection-status" class="status status-local">Local demo</span><button id="sign-in-button" class="button secondary">Sign in</button></div>
+  </header>
+  <main class="shell">
+    <section class="hero">
+      <div><p class="eyebrow">Kato.8 Studios</p><h1>Sales &amp; client CRM</h1><p class="lede">One shared pipeline for sponsorships, partnerships, and client work. Changes sync live for your team.</p></div>
+      <div class="hero-actions"><a class="button secondary" href="https://docs-three-chi-72.vercel.app/" target="_blank" rel="noreferrer">Open advertising tool ↗</a><button id="new-client" class="button">+ New client</button></div>
+    </section>
+    <section class="metrics" id="metrics"></section>
+    <section class="workspace">
+      <aside class="panel pipeline-panel">
+        <div class="panel-heading"><h2>Pipeline</h2><select id="stage-filter" aria-label="Filter by stage"><option value="all">All stages</option><option>Lead</option><option>Qualified</option><option>Proposal</option><option>Negotiation</option><option>Won</option><option>Lost</option></select></div>
+        <input id="search" class="search" placeholder="Search companies, contacts, notes..." aria-label="Search">
+        <div id="client-list" class="client-list"></div>
+      </aside>
+      <section class="panel editor-panel">
+        <div id="empty-state" class="empty-state"><span class="empty-icon">K8</span><h2>Choose a client</h2><p>Create a record or select one from the pipeline. The advertising tool can open this workspace with sponsor context already filled in.</p><button id="empty-new" class="button">Create first client</button></div>
+        <form id="client-form" hidden>
+          <div class="panel-heading editor-title"><div><p class="eyebrow">Client record</p><h2 id="record-title">New client</h2></div><button id="delete-client" type="button" class="text-danger">Delete</button></div>
+          <div class="form-grid">
+            <label>Company<input id="company" required placeholder="Acme, Inc."></label>
+            <label>Primary contact<input id="contact" placeholder="Name, title"></label>
+            <label>Email<input id="email" type="email" placeholder="name@company.com"></label>
+            <label>Stage<select id="stage"><option>Lead</option><option>Qualified</option><option>Proposal</option><option>Negotiation</option><option>Won</option><option>Lost</option></select></label>
+            <label>Estimated deal value (USD)<input id="value" type="number" min="0" step="100" placeholder="25000"></label>
+            <label>Next action date<input id="next-date" type="date"></label>
+            <label class="wide">Next action<input id="next-action" placeholder="Send sponsor term sheet"></label>
+            <label class="wide">Opportunity / placements<textarea id="scope" placeholder="Branded throwable, interactive prop, title sponsor..."></textarea></label>
+            <label class="wide">Notes<textarea id="notes" placeholder="Budget, decision process, brand restrictions, follow-ups..."></textarea></label>
+          </div>
+          <div class="form-actions"><button type="submit" class="button">Save changes</button><button type="button" id="cancel" class="button secondary">Cancel</button><span id="save-message" class="save-message"></span></div>
+        </form>
+      </section>
+    </section>
+    <p class="privacy-note">Shared mode uses Supabase with row-level security. Until Supabase is configured, this browser runs in local demo mode and does not share data.</p>
+  </main>
+  <dialog id="auth-dialog"><form method="dialog" id="auth-form"><button class="dialog-close" value="cancel" aria-label="Close">×</button><p class="eyebrow">Shared workspace</p><h2>Sign in to sync</h2><p>Use your team email. We’ll send a magic sign-in link.</p><label>Email<input id="auth-email" type="email" required placeholder="you@kato8studios.com"></label><button class="button" value="default">Send sign-in link</button><p id="auth-message" class="save-message"></p></form></dialog>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
